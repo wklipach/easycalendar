@@ -1,0 +1,9 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "start_ng_client",
+        "command": "ng serve --open",
+        "type": "shell"
+    }]
+
+}

@@ -10,25 +10,7 @@
             "request": "launch",
             "name": "Launch Program",
             "preLaunchTask": "start_ng_client"
-        },
-
-        {
-            "type": "chrome",
-            "request": "attach",
-            "name": "Attach to Chrome",
-            "port": 9222,
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}"
-        },
-
-        {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome",
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}"
-        },
-
+        }
 
     ]
 }

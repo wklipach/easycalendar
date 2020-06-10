@@ -1,4 +1,23 @@
+<div class="month">      
+    <ul>
+      <li class="prev" (click)="prev()"> ❮ </li>
+      <div class="topleft" (click)="now()">сегодня</div>
+      <li class="next" (click)="next()" > ❯ </li>
+      <li>
+        {{this.curDate.toLocaleString('ru', { month: 'long'})}}<br>
+        <span style="font-size:18px"> {{curDate.getFullYear()}}</span>
+      </li>
+    </ul>
+  </div>
+
 <app-weekdays></app-weekdays>
-<div *ngFor="let item of this.gv.getWeekArrayCount()">
-    <div>WEEK! {{item}}</div>
-</div>
+
+<ul class="days" *ngFor="let item of this.arrarWeekMonth; let i = index" id='week{{i}}'>
+          <li id='{{item[0].tagMo}}' [class]="item[0].boolCurMonth ? '' : 'notMonthDay'"> {{item[0].dayMo}} </li>
+          <li id='{{item[1].tagTu}}' [class]="item[1].boolCurMonth ? '' : 'notMonthDay'"> {{item[1].dayTu}} </li>
+          <li id='{{item[2].tagWe}}' [class]="item[2].boolCurMonth ? '' : 'notMonthDay'"> {{item[2].dayWe}} </li>
+          <li id='{{item[3].tagTh}}' [class]="item[3].boolCurMonth ? '' : 'notMonthDay'"> {{item[3].dayTh}} </li>
+          <li id='{{item[4].tagFr}}' [class]="item[4].boolCurMonth ? '' : 'notMonthDay'"> {{item[4].dayFr}} </li>
+          <li id='{{item[5].tagSa}}' [class]="item[5].boolCurMonth ? '' : 'notMonthDay'"> {{item[5].daySa}} </li>
+          <li id='{{item[6].tagSu}}' [class]="item[6].boolCurMonth ? '' : 'notMonthDay'"> {{item[6].daySu}} </li>
+</ul>

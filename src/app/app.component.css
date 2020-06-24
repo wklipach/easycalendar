@@ -33,7 +33,6 @@ ul {list-style-type: none;}
 }
 
 .month .now {
-    float: ;
     padding-top: 10px;
 }
 
@@ -59,12 +58,25 @@ ul {list-style-type: none;}
 .days li .active {
     padding: 5px;
     background: #054eaddc;
-    color: white !important
+    color: white !important;
 }
 
-.notMonthDay {
+.uncheckedNotMonthDay {
     background: white;
-    color: lightgray !important
+    color: lightgray !important;
+}
+
+.checkedNowMonthDay {
+    background: white;
+    color: lightgray !important;
+    border: 1px solid #00a8e1;
+}
+
+.uncheckedNowMonthDay {
+    background: white;
+    color: black !important;    
+    font-weight: bold;
+    border: 1px solid black;
 }
 
 .topleft {

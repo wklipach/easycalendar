@@ -13,11 +13,12 @@
 <app-weekdays></app-weekdays>
 
 <ul class="days" *ngFor="let item of this.arrarWeekMonth; let i = index" id='week{{i}}'>
-          <li id='{{item[0].tagMo}}' [class]="item[0].boolCurMonth ? '' : 'notMonthDay'"> {{item[0].dayMo}} </li>
-          <li id='{{item[1].tagTu}}' [class]="item[1].boolCurMonth ? '' : 'notMonthDay'"> {{item[1].dayTu}} </li>
-          <li id='{{item[2].tagWe}}' [class]="item[2].boolCurMonth ? '' : 'notMonthDay'"> {{item[2].dayWe}} </li>
-          <li id='{{item[3].tagTh}}' [class]="item[3].boolCurMonth ? '' : 'notMonthDay'"> {{item[3].dayTh}} </li>
-          <li id='{{item[4].tagFr}}' [class]="item[4].boolCurMonth ? '' : 'notMonthDay'"> {{item[4].dayFr}} </li>
-          <li id='{{item[5].tagSa}}' [class]="item[5].boolCurMonth ? '' : 'notMonthDay'"> {{item[5].daySa}} </li>
-          <li id='{{item[6].tagSu}}' [class]="item[6].boolCurMonth ? '' : 'notMonthDay'"> {{item[6].daySu}} </li>
+
+          <li id='{{item[0].tagMo}}' [class]="getCurrentStyle(item[0].boolCurMonth, item[0].boolCurDate, false)" (click)="mouseCheckDay(item[0].tagMo)"> {{item[0].dayMo}} </li>
+          <li id='{{item[1].tagTu}}' [class]="getCurrentStyle(item[1].boolCurMonth, item[1].boolCurDate, false)" (click)="mouseCheckDay(item[1].tagTu)"> {{item[1].dayTu}} </li>
+          <li id='{{item[2].tagWe}}' [class]="getCurrentStyle(item[2].boolCurMonth, item[2].boolCurDate, false)" (click)="mouseCheckDay(item[2].tagWe)"> {{item[2].dayWe}} </li>
+          <li id='{{item[3].tagTh}}' [class]="getCurrentStyle(item[3].boolCurMonth, item[3].boolCurDate, false)" (click)="mouseCheckDay(item[3].tagTh)"> {{item[3].dayTh}} </li>
+          <li id='{{item[4].tagFr}}' [class]="getCurrentStyle(item[4].boolCurMonth, item[4].boolCurDate, false)" (click)="mouseCheckDay(item[4].tagFr)"> {{item[4].dayFr}} </li>
+          <li id='{{item[5].tagSa}}' [class]="getCurrentStyle(item[5].boolCurMonth, item[5].boolCurDate, false)" (click)="mouseCheckDay(item[5].tagSa)"> {{item[5].daySa}} </li>
+          <li id='{{item[6].tagSu}}' [class]="getCurrentStyle(item[6].boolCurMonth, item[6].boolCurDate, false)" (click)="mouseCheckDay(item[6].tagSu)"> {{item[6].daySu}} </li>
 </ul>

@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   curMonth = 0;
   arrarWeekMonth: any;
   curDate: Date;
+  checkedDate = [];
 
 
   constructor() {
@@ -34,12 +35,15 @@ export class AppComponent implements OnInit {
     const weekFirst = this.getFirstWeeks(curDate.getFullYear(), curDate.getMonth());
     this.arrarWeekMonth = this.getWeekArrayCount(weekCount, weekFirst, curDate.getFullYear(), curDate);
 
-    // console.log('this.arrarWeekMonth', this.arrarWeekMonth);
+    console.log('this.arrarWeekMonth', this.arrarWeekMonth);
   }
 
+  mouseCheckDay(strDate: string) {
+    console.log(strDate);
+  }
 
   // дата начала заданной недели ISO8601 (которая всегда будет понедельником)
-  getDateOfISOWeek(w, y) {
+  getDateOfISOWeek(w: number, y: number) {
     const simple = new Date(y, 0, 1 + (w - 1) * 7);
     const dow = simple.getDay();
     const ISOweekStart = simple;
@@ -52,53 +56,76 @@ export class AppComponent implements OnInit {
     return ISOweekStart;
 }
 
+boolCurDate(strNowDate, strCurDate) {
+  if (strNowDate === strCurDate) {
+    return true; } else {
+      return false; }
+}
+
   // массив с номерами недель и первыми числами недели
 
   public getWeekArrayCount(weekCount, weekFirst, y, curDate) {
 
-  return Array<any> (weekCount).fill([0, null]).map((x: any, i: any) =>
+
+    const strNowDate = this.formatDate(new Date());
+
+    return Array<any> (weekCount).fill([0, null]).map((x: any, i: any) =>
     [
      {tagMo: this.getTag(i + weekFirst, y, 0),
       dayMo: this.getValue(i + weekFirst, y, 0),
       weekISOnumber: i + weekFirst,
       weekNumber: i,
-      boolCurMonth: this.getPeriod(i + weekFirst, y, 0, curDate)},
+      boolCurMonth: this.getPeriod(i + weekFirst, y, 0, curDate),
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 0))
+      },
 
      {tagTu: this.getTag(i + weekFirst, y, 1),
       dayTu: this.getValue(i + weekFirst, y, 1),
       weekISOnumber: i + weekFirst,
       weekNumber: i,
-      boolCurMonth: this.getPeriod(i + weekFirst, y, 1, curDate)},
+      boolCurMonth: this.getPeriod(i + weekFirst, y, 1, curDate),
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 1))
+    },
 
      {tagWe: this.getTag(i + weekFirst, y, 2),
       dayWe: this.getValue(i + weekFirst, y, 2),
       weekISOnumber: i + weekFirst,
       weekNumber: i,
-      boolCurMonth: this.getPeriod(i + weekFirst, y, 2, curDate)},
+      boolCurMonth: this.getPeriod(i + weekFirst, y, 2, curDate),
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 2))
+    },
 
      {tagTh: this.getTag(i + weekFirst, y, 3),
       dayTh: this.getValue(i + weekFirst, y, 3),
       weekISOnumber: i + weekFirst,
       weekNumber: i,
-      boolCurMonth: this.getPeriod(i + weekFirst, y, 3, curDate)},
+      boolCurMonth: this.getPeriod(i + weekFirst, y, 3, curDate),
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 3))
+    },
 
      {tagFr: this.getTag(i + weekFirst, y, 4),
       dayFr: this.getValue(i + weekFirst, y, 4),
       weekISOnumber: i + weekFirst,
       weekNumber: i,
-      boolCurMonth: this.getPeriod(i + weekFirst, y, 4, curDate)},
+      boolCurMonth: this.getPeriod(i + weekFirst, y, 4, curDate),
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 4))
+    },
 
      {tagSa: this.getTag(i + weekFirst, y, 5),
       daySa: this.getValue(i + weekFirst, y, 5),
       weekISOnumber: i + weekFirst,
       weekNumber: i,
-      boolCurMonth: this.getPeriod(i + weekFirst, y, 5, curDate)},
+      boolCurMonth: this.getPeriod(i + weekFirst, y, 5, curDate),
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 5))
+    },
 
      {tagSu: this.getTag(i + weekFirst, y, 6),
       daySu: this.getValue(i + weekFirst, y, 6),
       weekISOnumber: i + weekFirst,
       weekNumber: i,
-      boolCurMonth: this.getPeriod(i + weekFirst, y, 6, curDate)}
+      boolCurMonth: this.getPeriod(i + weekFirst, y, 6, curDate),
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 6))
+    }
 
   ]);
   }
@@ -184,6 +211,52 @@ next() {
 now() {
   this.curDate = new Date();
   this.initMethod ( this.curDate );
+}
+
+getCurrentStyle(boolCurMonth: boolean, boolNow: boolean, boolCheckDay: boolean) {
+
+ // не входящий в месяц день, который выбрали
+ if (!boolCurMonth && boolCheckDay) {
+  return 'checkedNotMonthDay';
+}
+
+// не входящий в месяц день, который не выбрали
+ if (!boolCurMonth && !boolCheckDay) {
+  return 'uncheckedNotMonthDay';
+}
+
+ // сегодняшняя дата которую выбрали
+ if (boolCurMonth && boolCheckDay && boolNow) {
+  return 'checkedNowMonthDay';
+}
+
+ // сегодняшняя дата которую не выбрали
+ if (boolCurMonth && !boolCheckDay && boolNow) {
+  return 'uncheckedNowMonthDay';
+}
+
+
+  // день текущего месяца который выбрали
+ if (boolCurMonth && boolCheckDay && !boolNow) {
+    return 'checkedMonthDay';
+  }
+
+ // обычный день текущего месяца который не выбрали
+ return '';
+
+}
+
+
+flipoverCheckDate(strDate: string) {
+
+  if (this.checkedDate.includes(strDate)) {
+// удаляем
+  } else {
+    // добавляем
+  }
+
+  // перерисовываем
+
 }
 
 

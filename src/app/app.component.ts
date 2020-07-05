@@ -15,7 +15,12 @@ export class AppComponent implements OnInit {
   curMonth = 0;
   arrarWeekMonth: any;
   curDate: Date;
+
+  // даты занятые пользователем
   checkedDate = [];
+
+  // даты занятые другим человеком
+  busyDate = [];
 
 
   constructor() {
@@ -35,11 +40,24 @@ export class AppComponent implements OnInit {
     const weekFirst = this.getFirstWeeks(curDate.getFullYear(), curDate.getMonth());
     this.arrarWeekMonth = this.getWeekArrayCount(weekCount, weekFirst, curDate.getFullYear(), curDate);
 
-    console.log('this.arrarWeekMonth', this.arrarWeekMonth);
+  }
+
+
+  mouseOver(event, strDay) {
+
+    if (event.buttons === 1) {
+        // добавляем элемент к выделенным
+        if (!this.checkedDate.includes(strDay)) {
+           this.checkedDate.push(strDay);
+           // правим массив на этот день
+           this.checkArarWeekMonth(strDay, true);
+
+        }
+    }
   }
 
   mouseCheckDay(strDate: string) {
-    console.log(strDate);
+    this.flipoverCheckDate(strDate);
   }
 
   // дата начала заданной недели ISO8601 (которая всегда будет понедельником)
@@ -76,7 +94,10 @@ boolCurDate(strNowDate, strCurDate) {
       weekISOnumber: i + weekFirst,
       weekNumber: i,
       boolCurMonth: this.getPeriod(i + weekFirst, y, 0, curDate),
-      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 0))
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 0)),
+      tag: this.getTag(i + weekFirst, y, 0),
+      boolCheckDay: this.checkedDate.includes(this.getTag(i + weekFirst, y, 0)),
+      boolBusyDay: this.busyDate.includes(this.getTag(i + weekFirst, y, 0))
       },
 
      {tagTu: this.getTag(i + weekFirst, y, 1),
@@ -84,7 +105,10 @@ boolCurDate(strNowDate, strCurDate) {
       weekISOnumber: i + weekFirst,
       weekNumber: i,
       boolCurMonth: this.getPeriod(i + weekFirst, y, 1, curDate),
-      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 1))
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 1)),
+      tag: this.getTag(i + weekFirst, y, 1),
+      boolCheckDay: this.checkedDate.includes(this.getTag(i + weekFirst, y, 1)),
+      boolBusyDay: this.busyDate.includes(this.getTag(i + weekFirst, y, 1))
     },
 
      {tagWe: this.getTag(i + weekFirst, y, 2),
@@ -92,7 +116,10 @@ boolCurDate(strNowDate, strCurDate) {
       weekISOnumber: i + weekFirst,
       weekNumber: i,
       boolCurMonth: this.getPeriod(i + weekFirst, y, 2, curDate),
-      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 2))
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 2)),
+      tag: this.getTag(i + weekFirst, y, 2),
+      boolCheckDay: this.checkedDate.includes(this.getTag(i + weekFirst, y, 2)),
+      boolBusyDay: this.busyDate.includes(this.getTag(i + weekFirst, y, 2))
     },
 
      {tagTh: this.getTag(i + weekFirst, y, 3),
@@ -100,7 +127,10 @@ boolCurDate(strNowDate, strCurDate) {
       weekISOnumber: i + weekFirst,
       weekNumber: i,
       boolCurMonth: this.getPeriod(i + weekFirst, y, 3, curDate),
-      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 3))
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 3)),
+      tag: this.getTag(i + weekFirst, y, 3),
+      boolCheckDay: this.checkedDate.includes(this.getTag(i + weekFirst, y, 3)),
+      boolBusyDay: this.busyDate.includes(this.getTag(i + weekFirst, y, 3))
     },
 
      {tagFr: this.getTag(i + weekFirst, y, 4),
@@ -108,7 +138,10 @@ boolCurDate(strNowDate, strCurDate) {
       weekISOnumber: i + weekFirst,
       weekNumber: i,
       boolCurMonth: this.getPeriod(i + weekFirst, y, 4, curDate),
-      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 4))
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 4)),
+      tag: this.getTag(i + weekFirst, y, 4),
+      boolCheckDay: this.checkedDate.includes(this.getTag(i + weekFirst, y, 4)),
+      boolBusyDay: this.busyDate.includes(this.getTag(i + weekFirst, y, 4))
     },
 
      {tagSa: this.getTag(i + weekFirst, y, 5),
@@ -116,7 +149,10 @@ boolCurDate(strNowDate, strCurDate) {
       weekISOnumber: i + weekFirst,
       weekNumber: i,
       boolCurMonth: this.getPeriod(i + weekFirst, y, 5, curDate),
-      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 5))
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 5)),
+      tag: this.getTag(i + weekFirst, y, 5),
+      boolCheckDay: this.checkedDate.includes(this.getTag(i + weekFirst, y, 5)),
+      boolBusyDay: this.busyDate.includes(this.getTag(i + weekFirst, y, 5))
     },
 
      {tagSu: this.getTag(i + weekFirst, y, 6),
@@ -124,7 +160,10 @@ boolCurDate(strNowDate, strCurDate) {
       weekISOnumber: i + weekFirst,
       weekNumber: i,
       boolCurMonth: this.getPeriod(i + weekFirst, y, 6, curDate),
-      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 6))
+      boolCurDate: this.boolCurDate(strNowDate, this.getTag(i + weekFirst, y, 6)),
+      tag: this.getTag(i + weekFirst, y, 6),
+      boolCheckDay: this.checkedDate.includes(this.getTag(i + weekFirst, y, 6)),
+      boolBusyDay: this.busyDate.includes(this.getTag(i + weekFirst, y, 6))
     }
 
   ]);
@@ -213,49 +252,155 @@ now() {
   this.initMethod ( this.curDate );
 }
 
-getCurrentStyle(boolCurMonth: boolean, boolNow: boolean, boolCheckDay: boolean) {
+/*
+busyNotMonthDay
+busyMonthNowDay
+busyMonthDay
+checkedNotMonthDay
+uncheckedNotMonthDay
+checkedNowMonthDay
+uncheckedNowMonthDay
+checkedMonthDay
+*/
+
+getCurrentStyle(boolCurMonth: boolean, boolNow: boolean, boolCheckDay: boolean, boolBusyDay: boolean) {
+
+  // не входящий в месяц день, который занят другим пользователем
+  if (!boolCurMonth && boolBusyDay) {
+    return 'busyNotMonthDay';
+  }
+
+  // сегодня, который занят другим пользователем
+  if (boolCurMonth && boolNow && boolBusyDay) {
+    return 'busyMonthNowDay';
+  }
+
+  // день текущего месяца, который занят другим пользователем
+  if (boolCurMonth && !boolNow && boolBusyDay) {
+    return 'busyMonthDay';
+  }
+
+
 
  // не входящий в месяц день, который выбрали
- if (!boolCurMonth && boolCheckDay) {
-  return 'checkedNotMonthDay';
-}
+  if (!boolCurMonth && boolCheckDay) {
+     return 'checkedNotMonthDay';
+ }
 
 // не входящий в месяц день, который не выбрали
- if (!boolCurMonth && !boolCheckDay) {
+  if (!boolCurMonth && !boolCheckDay) {
   return 'uncheckedNotMonthDay';
 }
 
  // сегодняшняя дата которую выбрали
- if (boolCurMonth && boolCheckDay && boolNow) {
+  if (boolCurMonth && boolCheckDay && boolNow) {
   return 'checkedNowMonthDay';
 }
 
  // сегодняшняя дата которую не выбрали
- if (boolCurMonth && !boolCheckDay && boolNow) {
+  if (boolCurMonth && !boolCheckDay && boolNow) {
   return 'uncheckedNowMonthDay';
 }
 
 
   // день текущего месяца который выбрали
- if (boolCurMonth && boolCheckDay && !boolNow) {
-    return 'checkedMonthDay';
+  if (boolCurMonth && boolCheckDay && !boolNow) {
+  return 'checkedMonthDay';
   }
 
- // обычный день текущего месяца который не выбрали
- return '';
+ // обычный день текущего месяца который не выбрали и не занят
+  return '';
 
 }
 
 
+// формирование макссива с зачеркнутыми датами
 flipoverCheckDate(strDate: string) {
 
   if (this.checkedDate.includes(strDate)) {
-// удаляем
+     // удаляем
+     const ind =  this.checkedDate.indexOf(strDate);
+     if (ind > -1) {
+      this.checkedDate.splice(ind, 1);
+     }
   } else {
     // добавляем
+    this.checkedDate.push(strDate);
   }
 
   // перерисовываем
+  this.repaintArrarWeekMonthFromCheckedDate();
+
+}
+
+// перерисовыем весь месяц заново, ставим false, но если нашлась в занятых ставим true
+repaintArrarWeekMonthFromCheckedDate() {
+
+   this.arrarWeekMonth.forEach( (anonymeWeek) => {
+       anonymeWeek.forEach( (currentDay) => {
+        if (this.checkedDate.includes(currentDay.tag)) {
+        currentDay.boolCheckDay = true;
+        } else {
+          currentDay.boolCheckDay = false;
+        }
+
+        if (this.busyDate.includes(currentDay.tag)) {
+          currentDay.boolBusyDay = true;
+          } else {
+            currentDay.boolBusyDay = false;
+          }
+
+       });
+      });
+}
+
+
+// добавляем или удаляем занятый день в основной массив
+checkArarWeekMonth(strDay: string, boolDay: boolean) {
+  let stopBool = false;
+  this.arrarWeekMonth.forEach( (anonymeWeek) => {
+    anonymeWeek.forEach( (currentDay) => {
+    if (currentDay.tag === strDay) {
+      stopBool = true;
+      currentDay.boolCheckDay = boolDay;
+      return currentDay;
+    }
+    if (stopBool) {
+        return anonymeWeek;
+      }
+
+    });
+  });
+}
+
+// очищает все выбранные дни
+clear() {
+  this.arrarWeekMonth.forEach( (anonymeWeek) => {
+    anonymeWeek.forEach( (currentDay) => {
+      currentDay.boolCheckDay = false;
+    });
+  });
+
+}
+
+// формирование макссива с датами при клике мыши
+flipoverMouseCheckDate(strDate: string) {
+
+  if (this.checkedDate.includes(strDate)) {
+     // удаляем
+     const ind =  this.checkedDate.indexOf(strDate);
+     if (ind > -1) {
+      this.checkedDate.splice(ind, 1);
+      // перерисовываем
+      this.checkArarWeekMonth(strDate, false);
+     }
+  } else {
+    // добавляем
+    this.checkedDate.push(strDate);
+    // перерисовываем
+    this.checkArarWeekMonth(strDate, true);
+  }
+
 
 }
 

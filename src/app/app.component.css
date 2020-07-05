@@ -61,24 +61,6 @@ ul {list-style-type: none;}
     color: white !important;
 }
 
-.uncheckedNotMonthDay {
-    background: white;
-    color: lightgray !important;
-}
-
-.checkedNowMonthDay {
-    background: white;
-    color: lightgray !important;
-    border: 1px solid #00a8e1;
-}
-
-.uncheckedNowMonthDay {
-    background: white;
-    color: black !important;    
-    font-weight: bold;
-    border: 1px solid black;
-}
-
 .topleft {
     position: absolute;
     top: 18px;
@@ -86,3 +68,81 @@ ul {list-style-type: none;}
     cursor: pointer;    
     color: white;
 }
+
+.top2left {
+    position: absolute;
+    top: 18px;
+    left: 88px;
+    cursor: pointer;    
+    color: white;
+}
+
+/* стили клеток в календаре */
+
+
+/* 1 обычный день не входящий в месяц */
+.uncheckedNotMonthDay {
+    background: white;
+    color: lightgray !important;
+}
+
+/* 2 забронированный день не входящий в месяц */
+.busyNotMonthDay {
+    background: white;
+    color: red !important;    
+    text-decoration: line-through;
+    font-weight: bold;
+}
+
+/* 3 отмеченный пользователем день не входящий в месяц */
+.checkedNotMonthDay {
+    background: white;
+    color: rgb(35, 182, 67) !important;    
+    text-decoration: line-through;    
+}
+
+
+/* 4 забронированный день входящий в месяц */
+.busyMonthDay {
+    background: white;
+    color: red !important;    
+    text-decoration: line-through;
+    font-weight: bold;
+}
+
+/* сегодняшний день занятый кем-то */
+busyMonthNowDay {
+    background: white;
+    color: red !important;    
+    font-weight: bold;
+    border: 1px solid black;
+    text-decoration: line-through;
+}
+
+/* 5 отмеченный пользователем день текущего месяца */
+.checkedMonthDay {
+    background: white;
+    color: rgb(35, 182, 67) !important;    
+    text-decoration: line-through;
+    font-weight: bold;
+}
+
+
+/* 6 день СЕГОДНЯ отмеченный пользователем */
+.checkedNowMonthDay {
+    background: white;
+    color: rgb(35, 182, 67) !important;    
+    font-weight: bold;
+    border: 1px solid black;
+    text-decoration: line-through;
+}
+
+/* 7 день СЕГОДНЯ */
+.uncheckedNowMonthDay {
+    background: white;
+    color: black !important;    
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+

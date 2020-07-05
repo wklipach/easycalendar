@@ -386,20 +386,25 @@ clear() {
 // формирование макссива с датами при клике мыши
 flipoverMouseCheckDate(strDate: string) {
 
-  if (this.checkedDate.includes(strDate)) {
-     // удаляем
-     const ind =  this.checkedDate.indexOf(strDate);
-     if (ind > -1) {
-      this.checkedDate.splice(ind, 1);
-      // перерисовываем
-      this.checkArarWeekMonth(strDate, false);
-     }
-  } else {
-    // добавляем
-    this.checkedDate.push(strDate);
-    // перерисовываем
-    this.checkArarWeekMonth(strDate, true);
-  }
+
+  setTimeout(() =>   {
+
+    if (this.checkedDate.includes(strDate)) {
+      // удаляем
+      const ind =  this.checkedDate.indexOf(strDate);
+      if (ind > -1) {
+       this.checkedDate.splice(ind, 1);
+       // перерисовываем
+       this.checkArarWeekMonth(strDate, false);
+      }
+   } else {
+     // добавляем
+     this.checkedDate.push(strDate);
+     // перерисовываем
+     this.checkArarWeekMonth(strDate, true);
+   }
+
+  }, 50);
 
 
 }

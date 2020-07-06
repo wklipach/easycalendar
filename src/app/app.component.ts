@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
   // даты занятые другим человеком
   busyDate = [];
 
+  // выбранная дата для начала промежутка
+  strDateBegin = '';
 
   constructor() {
     this.curDate = new Date();
@@ -43,9 +45,9 @@ export class AppComponent implements OnInit {
   }
 
 
-  mouseOver(event, strDay) {
+  mouseOver(event: { buttons: number; }, strDay: string, boolCurMonth: boolean) {
 
-    if (event.buttons === 1) {
+    if (event.buttons === 1 && boolCurMonth) {
         // добавляем элемент к выделенным
         if (!this.checkedDate.includes(strDay)) {
            this.checkedDate.push(strDay);
@@ -375,6 +377,10 @@ checkArarWeekMonth(strDay: string, boolDay: boolean) {
 
 // очищает все выбранные дни
 clear() {
+
+  this.strDateBegin = '';
+  this.checkedDate = [];
+
   this.arrarWeekMonth.forEach( (anonymeWeek) => {
     anonymeWeek.forEach( (currentDay) => {
       currentDay.boolCheckDay = false;
@@ -384,12 +390,14 @@ clear() {
 }
 
 // формирование макссива с датами при клике мыши
-flipoverMouseCheckDate(strDate: string) {
+flipoverMouseCheckDate(strDate: string, boolCurMonth: boolean) {
 
 
   setTimeout(() =>   {
 
-    if (this.checkedDate.includes(strDate)) {
+    const boolIncludes = this.checkedDate.includes(strDate);
+
+    if (boolIncludes) {
       // удаляем
       const ind =  this.checkedDate.indexOf(strDate);
       if (ind > -1) {
@@ -397,17 +405,63 @@ flipoverMouseCheckDate(strDate: string) {
        // перерисовываем
        this.checkArarWeekMonth(strDate, false);
       }
-   } else {
-     // добавляем
-     this.checkedDate.push(strDate);
-     // перерисовываем
-     this.checkArarWeekMonth(strDate, true);
-   }
+    }
+
+    if (!boolIncludes && boolCurMonth) {
+      // добавляем
+      this.checkedDate.push(strDate);
+      // перерисовываем
+      this.checkArarWeekMonth(strDate, true);
+
+      // если это первая точка ставим ее
+      if (this.strDateBegin === '') {
+      this.strDateBegin = strDate;
+      } else {
+
+      // если новая дата больше старой отмечаем все дни в промежутке
+       if (this.stringToDate(strDate) > this.stringToDate(this.strDateBegin)) {
+          this.checkDayFromPeriod(this.stringToDate(this.strDateBegin), this.stringToDate(strDate));
+          this.strDateBegin = '';
+       } else {
+        this.strDateBegin = strDate;
+       }
+
+
+      }
+
+
+      }
 
   }, 50);
 
 
 }
 
+
+// преобразовывает dd.mm.yyyy в дату
+stringToDate(st: string) {
+    const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+    return new Date(st.replace(pattern, '$3-$2-$1'));
+}
+
+checkDayFromPeriod(dateBegin, dateEnd) {
+  // делаем цикл по датам
+  const D = new Date(dateBegin);
+
+  while (D <= dateEnd) {
+    const strNowDate = this.formatDate(D);
+
+    if (!this.checkedDate.includes(strNowDate)) {
+      this.checkedDate.push(strNowDate);
+    }
+
+    this.checkArarWeekMonth(strNowDate, true);
+    console.log('strNowDate=', strNowDate);
+    D.setDate(D.getDate() + 1);
+  }
+
+
+
+}
 
 }

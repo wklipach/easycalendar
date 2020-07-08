@@ -460,8 +460,6 @@ checkDayFromPeriod(dateBegin, dateEnd) {
     D.setDate(D.getDate() + 1);
   }
 
-
-
 }
 
 }
